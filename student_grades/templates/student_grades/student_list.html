@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Grades</title>
+</head>
+<body>
+    <h1>Student Grades</h1>
+
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search by student name" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <form method="GET" action="">
+        <select name="filter" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option value="PASS" {% if request.GET.filter == 'PASS' %}selected{% endif %}>PASS</option>
+            <option value="FAIL" {% if request.GET.filter == 'FAIL' %}selected{% endif %}>FAIL</option>
+        </select>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.student_name }}</td>
+                <td>{{ student.subject_name.subject_name }}</td>
+                <td>{{ student.grade }}</td>
+                <td>{{ student.remarks }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No students found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
